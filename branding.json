@@ -1,0 +1,13 @@
+{
+  "primaryColor": "#FAFAF6",
+  "secondaryColor": "#D5D8CE",
+  "backgroundColor": "#FAFAF6",
+  "textColor": "#222820",
+  "accentColor": "#245A3C",
+  "fontHeading": "Barlow Condensed Semibold",
+  "fontBody": "Source Sans 3,",
+  "borderRadius": "0.5rem",
+  "logoText": "Pedidos Restaurante Mexicano",
+  "logoImageUrl": null,
+  "tone": "trustworthy"
+}
