@@ -1,6 +1,7 @@
 import 'server-only';
 import {getDb} from './db';
 import type { MenuItem, Order, Slot } from './types';
+import {DEMO_WINDOW_DAYS} from './demo-config';
 const samples = [
  ['pollo','Tacos','Tacos de pollo','Tortilla de maíz, pollo y un toque de limón.','Tortilla de maíz, pollo, cebolla, cilantro, limón.','/images/tacos-detail.jpg'],
  ['champi','Tacos','Tacos de champiñones','Champiñones salteados dentro de una tortilla de maíz.','Tortilla de maíz, champiñones, cebolla, cilantro.', '/images/tacos.jpg'],
@@ -45,11 +46,11 @@ export async function menu(): Promise<MenuItem[]> {
 export async function slots(): Promise<Slot[]> {
  await initialize();
  const db=getDb();
- // Explicit demo window: 12:00–15:00 UTC for today and the following six days.
+ // Explicit demo window: 12:00–15:00 UTC for a rolling, explicitly labelled 28-day demonstration window.
  const tx=await db.transaction('write');
  try{
  const midnight=new Date();midnight.setUTCHours(0,0,0,0);
- for(let d=0;d<7;d++)for(let h=24;h<30;h++){
+ for(let d=0;d<DEMO_WINDOW_DAYS;d++)for(let h=24;h<30;h++){
  const start=new Date(midnight.getTime()+d*86400000+h*1800000).toISOString();
  const end=new Date(new Date(start).getTime()+1800000).toISOString();
  await tx.execute({sql:'INSERT OR IGNORE INTO pickup_slots(id,start,end,capacity) VALUES(?,?,?,5)',args:[start,start,end]});
@@ -57,7 +58,7 @@ export async function slots(): Promise<Slot[]> {
  await tx.commit();
  }catch(e){await tx.rollback();throw e;}finally{tx.close();}
  const now=new Date().toISOString();
- const end=new Date();end.setUTCHours(0,0,0,0);end.setUTCDate(end.getUTCDate()+7);
+ const end=new Date();end.setUTCHours(0,0,0,0);end.setUTCDate(end.getUTCDate()+DEMO_WINDOW_DAYS);
  const {rows}=await db.execute({sql:`SELECT s.*, s.capacity-(SELECT COUNT(*) FROM orders o WHERE o.slot_id=s.id AND o.status='saved') AS remaining FROM pickup_slots s WHERE s.start>? AND s.start<? ORDER BY s.start`,args:[now,end.toISOString()]});
  return rows.map(r=>({id:String(r.id),start:String(r.start),end:String(r.end),remaining:Number(r.remaining)}));
 }

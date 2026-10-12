@@ -1,5 +1,6 @@
 import {initialize,sessionOrders} from '@/lib/data';
 import {getDb} from '@/lib/db';
+import {isOrderSlotAvailable} from '@/lib/order-slot';
 import {getSession,privateHeaders,validOrigin} from '@/lib/session';
 import {randomUUID, randomBytes} from 'node:crypto';
 export const dynamic='force-dynamic';
@@ -37,7 +38,7 @@ export async function POST(req:Request){
  }
  const s=await tx.execute({sql:`SELECT s.*, (SELECT COUNT(*) FROM orders o WHERE o.slot_id=s.id AND o.status='saved') AS occupied FROM pickup_slots s WHERE id=?`,args:[body.slotId]});
  const slot=s.rows[0];
- if(!slot||String(slot.start)<=new Date().toISOString()||Number(slot.occupied)>=Number(slot.capacity)){
+ if(!isOrderSlotAvailable(slot)){
  await tx.rollback();return reply({error:'Esta franja ya no está disponible. Elige otra.',fields:{slotId:'Selecciona otra franja futura con plazas.'}},409);}
  const id=randomUUID();const reference='MX'+randomBytes(6).toString('hex').toUpperCase();
  await tx.execute({sql:"INSERT INTO orders(id,reference,session,name,slot_id,status,created,idempotency_key,payload) VALUES(?,?,?,?,?,'saved',?,?,?)",args:[id,reference,session,name,body.slotId,new Date().toISOString(),body.idempotencyKey,payload]});

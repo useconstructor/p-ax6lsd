@@ -8,7 +8,7 @@ export async function establishSession(req:Request){
  // HTTP loopback supports local QA. All deployed/embedded sessions retain
  // Secure, SameSite=None and Partitioned; never downgrade remote origins.
  const url=new URL(req.url);
- const localHttp=url.protocol==='http:'&&['localhost','127.0.0.1','[::1]'].includes(url.hostname);
+ const localHttp=url.protocol==='http:'&&['localhost','127.0.0.1','[::1]','0.0.0.0'].includes(url.hostname);
  if(!session){session=randomBytes(32).toString('hex');(await cookies()).set(cookieName,session,{httpOnly:true,secure:!localHttp,sameSite:localHttp?'lax':'none',partitioned:!localHttp,path:'/',maxAge:60*60*24*30});}
  return session;
 }
@@ -21,7 +21,7 @@ export function validOrigin(req:Request){
  origins.add(requestUrl.origin);
  // Next's local server may normalize req.url to localhost even when the
  // browser uses 127.0.0.1. Allow only explicit loopback aliases on its port.
- if(requestUrl.protocol==='http:'&&['localhost','127.0.0.1','[::1]'].includes(requestUrl.hostname)) {
+ if(requestUrl.protocol==='http:'&&['localhost','127.0.0.1','[::1]','0.0.0.0'].includes(requestUrl.hostname)) {
   for(const hostname of ['localhost','127.0.0.1','[::1]'])origins.add(`http://${hostname}${requestUrl.port?`:${requestUrl.port}`:''}`);
  }
  return origins.has(req.headers.get('origin') || '');
