@@ -1,6 +1,15 @@
 (()=>{
 if(window.__constructorEditor)return;window.__constructorEditor=true;
 const originals=new Map();
+let workflowsPromise;const runningWorkflows=new Set();
+const workflows=()=>workflowsPromise||(workflowsPromise=fetch('/constructor-workflows.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Workflow definitions are unavailable.');return r.json()}).then(data=>{if(data?.version!==1||!Array.isArray(data.workflows))throw Error('Invalid workflow definitions.');return data.workflows}).catch(error=>{workflowsPromise=null;throw error}));
+const runWorkflow=async(id,element)=>{
+if(runningWorkflows.has(id))return;runningWorkflows.add(id);const previous=element.getAttribute('aria-busy');element.setAttribute('aria-busy','true');
+const notice=document.createElement('div');notice.dataset.constructorUi='true';notice.setAttribute('role','status');Object.assign(notice.style,{position:'fixed',bottom:'24px',right:'24px',maxWidth:'min(360px,calc(100vw - 32px))',padding:'14px 18px',background:'#fff',color:'#171717',border:'1px solid #ddd',borderRadius:'10px',boxShadow:'0 8px 30px #0002',zIndex:'2147483647'});notice.textContent='Running workflow…';document.body.appendChild(notice);
+try{const workflow=(await workflows()).find(w=>w.id===id);if(!workflow||!/^\/api\/[A-Za-z0-9/_-]+$/.test(workflow.endpoint)||workflow.endpoint.includes('//')||!['GET','POST'].includes(workflow.method))throw Error('This workflow is unavailable.');const url=new URL(workflow.endpoint,location.origin);if(workflow.method==='GET')for(const[k,v]of Object.entries(workflow.input||{}))url.searchParams.set(k,String(v??''));const response=await fetch(url.href,{method:workflow.method,credentials:'same-origin',redirect:'error',signal:AbortSignal.timeout(30000),headers:workflow.method==='POST'?{'Content-Type':'application/json'}:{},...(workflow.method==='POST'?{body:JSON.stringify(workflow.input||{})}:{})});const text=(await response.text()).slice(0,16000);let result;try{result=JSON.parse(text)}catch{result=null}if(!response.ok)throw Error(typeof result?.error==='string'?result.error.slice(0,300):'Workflow failed ('+response.status+').');notice.textContent=typeof result?.message==='string'?result.message.slice(0,300):'Workflow completed.';dispatchEvent(new CustomEvent('constructor-workflow-result',{detail:{id,status:'completed',result}}));send('workflow-result',{id,status:'completed'});}
+catch(error){notice.setAttribute('role','alert');notice.textContent=error.message||'Unable to run workflow.';send('workflow-result',{id,status:'failed'});}finally{runningWorkflows.delete(id);if(previous===null)element.removeAttribute('aria-busy');else element.setAttribute('aria-busy',previous);const close=document.createElement('button');close.textContent='Close';close.style.marginLeft='12px';close.addEventListener('click',()=>notice.remove());notice.appendChild(close);setTimeout(()=>notice.remove(),12000);}
+};
+
 let config={version:1,edits:[]},enabled=false,platform=null,nonce=null,selected=null,hydrated=false,commentMode=false,commentThreads=[];
 const editable='h1,h2,h3,h4,h5,h6,p,span,a,button,img,section,header,footer,nav,main,div';
 const key=element=>{const parts=[];while(element&&element!==document.body&&element.parentElement){const tag=element.tagName.toLowerCase();const siblings=[...element.parentElement.children].filter(item=>item.tagName===element.tagName);parts.unshift(tag+':nth-of-type('+(siblings.indexOf(element)+1)+')');element=element.parentElement}return 'body:nth-of-type(1) > '+parts.join(' > ')};
@@ -26,7 +35,7 @@ document.addEventListener('click',event=>{if(!enabled&&!commentMode)return;const
 document.addEventListener('click',event=>{
 if(enabled||commentMode||event.button!==0)return;const element=event.target.closest('a,button');if(!element||element.closest('[data-constructor-ui]')||element.disabled||element.getAttribute('aria-disabled')==='true')return;
 const edit=config.edits.find(edit=>edit.path===location.pathname&&edit.selector===key(element));if(!edit?.action)return;
-const action=edit.action;event.preventDefault();event.stopImmediatePropagation();if(action.type==='none')return;
+const action=edit.action;event.preventDefault();event.stopImmediatePropagation();if(action.type==='none')return;if(action.type==='workflow'){void runWorkflow(action.target,element);return;}
 let target;try{target=new URL(action.target,location.origin);if(action.type==='navigate'&&(target.origin!==location.origin||!action.target.startsWith('/')||action.target.startsWith('//')))return;if(action.type==='url'&&(target.protocol!=='https:'||target.username||target.password))return}catch{return}
 if(event.metaKey||event.ctrlKey||event.shiftKey)window.open(target.href,'_blank','noopener,noreferrer');else location.assign(target.href);
 },true);
