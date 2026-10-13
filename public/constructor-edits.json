@@ -1,5 +1,10 @@
 {
   "version": 1,
+  "views": {
+    "/menu": {
+      "name": "Menú de prueba QA"
+    }
+  },
   "edits": [
     {
       "path": "/",
@@ -20,6 +25,17 @@
       },
       "attributes": {},
       "styles": {}
+    },
+    {
+      "path": "/menu",
+      "selector": "body:nth-of-type(1)",
+      "styles": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "16px",
+        "padding": "16px",
+        "backgroundColor": "#f5f5f5"
+      }
     }
   ]
 }
