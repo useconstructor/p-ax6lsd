@@ -44,6 +44,15 @@
         "height": "235.19px",
         "fontWeight": "600"
       }
+    },
+    {
+      "path": "/",
+      "selector": "body:nth-of-type(1)",
+      "attributes": {},
+      "styles": {
+        "display": "grid",
+        "flexDirection": "row"
+      }
     }
   ]
 }
