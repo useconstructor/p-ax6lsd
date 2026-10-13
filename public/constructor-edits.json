@@ -3,6 +3,9 @@
   "views": {
     "/carta-final-verificada": {
       "name": "Carta QA"
+    },
+    "/": {
+      "name": "Home QA header"
     }
   },
   "edits": [
