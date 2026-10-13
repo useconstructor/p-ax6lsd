@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "workflows": [
+    {
+      "id": "check_status",
+      "name": "Check status",
+      "description": "QA read-only check",
+      "endpoint": "/api/status",
+      "method": "GET",
+      "input": {
+        "sample": "yes"
+      }
+    }
+  ]
+}
