@@ -1,6 +1,6 @@
 {
   "version": 1,
   "routes": {
-    "/carta-qa": "/menu"
+    "/carta-final-qa": "/menu"
   }
 }
