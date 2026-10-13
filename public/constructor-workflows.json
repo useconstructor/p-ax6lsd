@@ -3,13 +3,11 @@
   "workflows": [
     {
       "id": "check_status",
-      "name": "Check status",
+      "name": "Consultar estado QA",
       "description": "QA read-only check",
-      "endpoint": "/api/status",
+      "endpoint": "/api/menu",
       "method": "GET",
-      "input": {
-        "sample": "yes"
-      }
+      "input": {}
     }
   ]
 }
