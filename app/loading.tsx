@@ -1,1 +1,1 @@
-export default function Loading(){return <main id="contenido" className="mx-auto min-h-[70vh] max-w-[1280px] px-6 py-16" aria-busy="true"><p role="status" className="text-primary">Cargando contenido…</p><div className="mt-8 h-64 rounded-lg bg-muted"/></main>;}
+export default function Loading(){return <main id="contenido" tabIndex={-1} className="mx-auto min-h-[70vh] max-w-[1280px] px-6 py-16" aria-busy="true"><p role="status" className="text-primary">Cargando contenido…</p><div className="mt-8 h-64 rounded-lg bg-muted"/></main>;}

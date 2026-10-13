@@ -1,13 +1,1 @@
-{
-  "primaryColor": "#D93825",
-  "secondaryColor": "#FFDA59",
-  "backgroundColor": "#FFFEFA",
-  "textColor": "#29271F",
-  "accentColor": "#203DC3",
-  "fontHeading": "Archivo Black",
-  "fontBody": "Source Sans 3",
-  "borderRadius": "0.2rem",
-  "logoText": "Mesa Brava",
-  "logoImageUrl": null,
-  "tone": "expressive"
-}
+{"primaryColor":"#df2626","secondaryColor":"#ffd444","backgroundColor":"#fffef6","textColor":"#222223","accentColor":"#173996","fontHeading":"Anton","fontBody":"Source Sans 3","borderRadius":"0.4rem","logoText":"Mesa Brava","logoImageUrl":null,"tone":"expressive cantina"}
