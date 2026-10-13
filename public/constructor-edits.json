@@ -1,4 +1,14 @@
 {
   "version": 1,
-  "edits": []
+  "edits": [
+    {
+      "path": "/",
+      "selector": "body:nth-of-type(1) > main:nth-of-type(1) > p:nth-of-type(1)",
+      "text": "Texto exacto de edición QA",
+      "styles": {
+        "color": "#7928ca",
+        "width": "320px"
+      }
+    }
+  ]
 }
