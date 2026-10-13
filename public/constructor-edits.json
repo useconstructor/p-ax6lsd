@@ -1,5 +1,10 @@
 {
   "version": 1,
+  "views": {
+    "/carta-qa": {
+      "name": "Carta QA"
+    }
+  },
   "edits": [
     {
       "path": "/",
