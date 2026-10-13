@@ -1,6 +1,10 @@
 {
   "version": 1,
   "routes": {
-    "/carta-final-qa": "/menu"
+    "/carta-final-verificada": "/menu"
+  },
+  "redirects": {
+    "/menu": "/carta-final-verificada",
+    "/carta-final-qa": "/carta-final-verificada"
   }
 }
