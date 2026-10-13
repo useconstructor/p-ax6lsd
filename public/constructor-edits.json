@@ -9,6 +9,14 @@
         "color": "#7928ca",
         "width": "320px"
       }
+    },
+    {
+      "path": "/",
+      "selector": "body:nth-of-type(1) > button:nth-of-type(1)",
+      "action": {
+        "type": "navigate",
+        "target": "/reservas"
+      }
     }
   ]
 }
