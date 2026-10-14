@@ -44,7 +44,8 @@
           "height": "127px"
         },
         "mobile": {
-          "width": "358px"
+          "width": "358px",
+          "height": "114.39px"
         }
       }
     }
