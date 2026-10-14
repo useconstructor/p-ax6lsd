@@ -28,8 +28,8 @@
       "path": "/",
       "selector": "body:nth-of-type(1) > main:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
       "action": {
-        "type": "workflow",
-        "target": "check_status"
+        "type": "url",
+        "target": "https://www.useconstructor.com"
       },
       "attributes": {},
       "styles": {}
