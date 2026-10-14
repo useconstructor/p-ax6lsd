@@ -42,6 +42,9 @@
         "tablet": {
           "width": "354.5px",
           "height": "127px"
+        },
+        "mobile": {
+          "width": "358px"
         }
       }
     }
