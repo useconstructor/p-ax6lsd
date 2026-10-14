@@ -28,8 +28,8 @@
       "path": "/",
       "selector": "body:nth-of-type(1) > main:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
       "action": {
-        "type": "navigate",
-        "target": "/carta-final-verificada"
+        "type": "workflow",
+        "target": "check_status"
       },
       "attributes": {},
       "styles": {}
