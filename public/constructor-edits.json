@@ -41,6 +41,9 @@
       "responsiveStyles": {
         "desktop": {
           "width": "491px"
+        },
+        "mobile": {
+          "width": "358px"
         }
       }
     }
