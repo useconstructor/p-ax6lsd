@@ -43,6 +43,9 @@
           "objectFit": "contain",
           "objectPosition": "top",
           "opacity": "0.99"
+        },
+        "mobile": {
+          "opacity": "0.99"
         }
       }
     }
