@@ -41,7 +41,8 @@
           "borderRadius": "1px",
           "borderWidth": "1px",
           "objectFit": "contain",
-          "objectPosition": "top"
+          "objectPosition": "top",
+          "opacity": "0.99"
         }
       }
     }
