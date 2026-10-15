@@ -33,6 +33,18 @@
       "styles": {
         "boxShadow": "0 1px 2px 0 rgb(0 0 0 / 0.05)"
       }
+    },
+    {
+      "path": "/",
+      "selector": "body:nth-of-type(1) > main:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > h1:nth-of-type(1)",
+      "attributes": {},
+      "responsiveStyles": {
+        "desktop": {
+          "fontFamily": "Geist",
+          "fontWeight": "700",
+          "fontSize": "57px"
+        }
+      }
     }
   ]
 }
