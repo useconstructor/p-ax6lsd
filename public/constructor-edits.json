@@ -8,16 +8,6 @@
   "edits": [
     {
       "path": "/",
-      "selector": "body:nth-of-type(1) > main:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
-      "action": {
-        "type": "workflow",
-        "target": "check_status"
-      },
-      "attributes": {},
-      "styles": {}
-    },
-    {
-      "path": "/",
       "selector": "body:nth-of-type(1) > main:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
       "action": {
         "type": "workflow",
@@ -33,6 +23,16 @@
       "styles": {
         "boxShadow": "0 1px 2px 0 rgb(0 0 0 / 0.05)"
       }
+    },
+    {
+      "path": "/",
+      "selector": "body:nth-of-type(1) > main:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
+      "action": {
+        "type": "url",
+        "target": "https://p-ax6lsd-q7cgtrdbi-useconstructor.vercel.app/carta-final-verificada"
+      },
+      "attributes": {},
+      "styles": {}
     }
   ]
 }
