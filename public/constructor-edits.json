@@ -32,14 +32,6 @@
       "attributes": {},
       "styles": {
         "boxShadow": "0 1px 2px 0 rgb(0 0 0 / 0.05)"
-      },
-      "responsiveStyles": {
-        "desktop": {
-          "borderColor": "#0070f3",
-          "borderRadius": "8px",
-          "borderWidth": "2px",
-          "opacity": "0.9"
-        }
       }
     }
   ]
