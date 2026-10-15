@@ -29,7 +29,9 @@
     {
       "path": "/",
       "selector": "body:nth-of-type(1) > main:nth-of-type(1) > section:nth-of-type(1) > figure:nth-of-type(1) > img:nth-of-type(1)",
-      "attributes": {},
+      "attributes": {
+        "src": "/constructor-assets/32e88ea3-bdc7-4f0e-8fcc-02f38f129188.png"
+      },
       "styles": {
         "boxShadow": "0 1px 2px 0 rgb(0 0 0 / 0.05)"
       }
